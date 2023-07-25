@@ -1,6 +1,6 @@
 // require express, connection.js, and routes folder
 const express = require('express');
-// const db = require('./config/connection');
+const db = require('./config/connection');
 // const routes = require('./routes');
 
 const PORT = 3001;
