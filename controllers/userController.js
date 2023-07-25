@@ -29,3 +29,19 @@ export const createUser = async (req, res) => {
     console.log(err);
   }
 }
+
+export const updateUser = async (req, res) => {
+  try {
+    const updateUser = await User.findOneAndUpdate(
+      { _id: req.params.userId }, 
+      { $set: req.body },
+      { new: true },
+    );
+    if (!updateUser) {
+      res.status(404).json("User is not found");
+    } 
+    res.json(updateUser);
+  } catch (err) {
+    console.log(err);
+  }
+}
