@@ -6,6 +6,7 @@ export const getAllUsers = async(req, res) => {
     res.json(allUsers);
   } catch (err) {
     console.log(err);
+    res.status(500).json(err);
   }
 }
 
@@ -18,6 +19,7 @@ export const getOneUser = async(req, res) => {
     res.json(user);
   } catch (err) {
     console.log(err);
+    res.status(500).json(err);
   }
 }
 
@@ -27,6 +29,7 @@ export const createUser = async (req, res) => {
     res.json(newUser);
   } catch (err) {
     console.log(err);
+    res.status(500).json(err);
   }
 }
 
@@ -43,6 +46,8 @@ export const updateUser = async (req, res) => {
     res.json(updateUser);
   } catch (err) {
     console.log(err);
+    res.status(500).json(err);
+
   }
 }
 
@@ -57,5 +62,23 @@ export const deleteUser = async (req, res) => {
     res.json(deleteUser);
   } catch (err) {
     console.log(err);
+    res.status(500).json(err);
+  }
+}
+
+export const addFriend = async (req, res) => {
+  try {
+    const addFriend = await User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $addToSet: { friends: req.params.friendId }},
+      { new: true }
+    );
+    if (!addFriend) {
+      res.status(404).json("Friend is not found");
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+
   }
 }
