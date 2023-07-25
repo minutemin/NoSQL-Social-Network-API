@@ -45,3 +45,17 @@ export const updateUser = async (req, res) => {
     console.log(err);
   }
 }
+
+export const deleteUser = async (req, res) => {
+  try {
+    const deleteUser = await User.findOneAndDelete(
+      { _id: req.params.userId }, 
+    );
+    if (!deleteUser) {
+      res.status(404).json("User is not found");
+    } 
+    res.json(deleteUser);
+  } catch (err) {
+    console.log(err);
+  }
+}
