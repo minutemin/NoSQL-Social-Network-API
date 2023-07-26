@@ -11,5 +11,5 @@ const {
 } = require('../../controllers/thoughtController');
 
 // route for homepage to get all thoughts and create a thought
-router.route('/').get
+// router.route('/').get
 module.exports = router;

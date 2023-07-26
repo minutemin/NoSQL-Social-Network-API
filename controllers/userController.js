@@ -1,6 +1,6 @@
 const User = require('../models/Users');
 
-export const getAllUsers = async(req, res) => {
+const getAllUsers = async(req, res) => {
   try {
     const allUsers = await User.find()
     res.json(allUsers);
@@ -8,9 +8,9 @@ export const getAllUsers = async(req, res) => {
     console.log(err);
     res.status(500).json(err);
   }
-}
+};
 
-export const getOneUser = async(req, res) => {
+const getOneUser = async(req, res) => {
   try {
     const user = await User.findOne({ _id: req.params.userId });
     if (!user) {
@@ -21,9 +21,9 @@ export const getOneUser = async(req, res) => {
     console.log(err);
     res.status(500).json(err);
   }
-}
+};
 
-export const createUser = async (req, res) => {
+const createUser = async (req, res) => {
   try {
     const newUser = await User.create(req.body);
     res.json(newUser);
@@ -31,9 +31,9 @@ export const createUser = async (req, res) => {
     console.log(err);
     res.status(500).json(err);
   }
-}
+};
 
-export const updateUser = async (req, res) => {
+const updateUser = async (req, res) => {
   try {
     const updateUser = await User.findOneAndUpdate(
       { _id: req.params.userId }, 
@@ -49,9 +49,9 @@ export const updateUser = async (req, res) => {
     res.status(500).json(err);
 
   }
-}
+};
 
-export const deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {
   try {
     const deleteUser = await User.findOneAndDelete(
       { _id: req.params.userId }, 
@@ -64,9 +64,9 @@ export const deleteUser = async (req, res) => {
     console.log(err);
     res.status(500).json(err);
   }
-}
+};
 
-export const addFriend = async (req, res) => {
+const addFriend = async (req, res) => {
   try {
     const addFriend = await User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -81,9 +81,9 @@ export const addFriend = async (req, res) => {
     res.status(500).json(err);
 
   }
-}
+};
 
-export const removeFriend = async (req, res) => {
+const removeFriend = async (req, res) => {
   try {
     const removeFriend = await User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -97,4 +97,14 @@ export const removeFriend = async (req, res) => {
     console.log(err);
     res.status(500).json(err);
   }
-}
+};
+
+module.exports  = {
+  getAllUsers, 
+  getOneUser, 
+  createUser, 
+  updateUser, 
+  deleteUser,
+  addFriend,
+  removeFriend
+};

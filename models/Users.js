@@ -16,11 +16,11 @@ const userSchema = new Schema({
       matches: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/],
     } ,
     thoughts: [{ 
-      type: mongoose.Schema.Types.ObjectId, 
+      type: Schema.Types.ObjectId, 
       ref: 'Thoughts'
     }],
     friend: [{
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Users'
     }], 
     }, 
