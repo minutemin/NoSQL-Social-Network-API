@@ -13,7 +13,7 @@ const getAllThoughts = async(req, res) => {
 
 const getOneThought = async(req, res) => {
   try {
-    const thought = await Thoughts.findOne({ _id: req.params.thoughtId });
+    const thought = await Thoughts.findOne({ _id: req.params.thoughtsId });
     if (!thought) {
       res.status(404).json({ message: "That thought is not found" });
     } 
@@ -37,7 +37,7 @@ const createThought = async (req, res) => {
 const updateThought = async (req, res) => {
   try {
     const updateThought = await Thoughts.findOneAndUpdate(
-      { _id: req.params.thoughtId }, 
+      { _id: req.params.thoughtsId }, 
       { $set: req.body },
       { new: true },
     );
@@ -54,7 +54,7 @@ const updateThought = async (req, res) => {
 const deleteThought = async (req, res) => {
   try {
     const deleteThought = await Thoughts.findOneAndDelete(
-      { _id: req.params.thoughtId }, 
+      { _id: req.params.thoughtsId }, 
     );
     if (!deleteThought) {
       res.status(404).json({ message: "Thought is not found" });
@@ -70,8 +70,8 @@ const deleteThought = async (req, res) => {
 const addReaction = async (req, res) => {
   try {
     const addThought = await Thoughts.findOneAndUpdate(
-      { _id: req.params.userId },
-      { $addToSet: { friends: req.params.thoughtId }},
+      { _id: req.params.thoughtsId },
+      { $addToSet: { friends: req.params.thoughtsId }},
       { new: true }
     );
     if (!addFriend) {
@@ -87,7 +87,7 @@ const addReaction = async (req, res) => {
 const removeReaction = async (req, res) => {
   try {
     const removeFriend = await Thoughts.findOneAndUpdate(
-      { _id: req.params.userId },
+      { _id: req.params.thoughtsId },
       { $pull: { friends: { friendId: req.body.friendId }}},
       { new: true }
     );
