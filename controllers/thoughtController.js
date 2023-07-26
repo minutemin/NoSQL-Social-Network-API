@@ -1,7 +1,7 @@
 const Thoughts = require('../models/Thoughts');
 
 
-export const getAllThoughts = async(req, res) => {
+const getAllThoughts = async(req, res) => {
   try {
     const allThoughts = await Thoughts.find()
     res.json(allThoughts);
@@ -11,7 +11,7 @@ export const getAllThoughts = async(req, res) => {
   }
 }
 
-export const getOneThought = async(req, res) => {
+const getOneThought = async(req, res) => {
   try {
     const thought = await Thoughts.findOne({ _id: req.params.thoughtId });
     if (!thought) {
@@ -24,7 +24,7 @@ export const getOneThought = async(req, res) => {
   }
 }
 
-export const createThought = async (req, res) => {
+const createThought = async (req, res) => {
   try {
     const newThought = await Thoughts.create(req.body);
     res.json(newThought);
@@ -34,7 +34,7 @@ export const createThought = async (req, res) => {
   }
 }
 
-export const updateThought = async (req, res) => {
+const updateThought = async (req, res) => {
   try {
     const updateThought = await Thoughts.findOneAndUpdate(
       { _id: req.params.thoughtId }, 
@@ -51,7 +51,7 @@ export const updateThought = async (req, res) => {
   }
 }
 
-export const deleteThought = async (req, res) => {
+const deleteThought = async (req, res) => {
   try {
     const deleteThought = await Thoughts.findOneAndDelete(
       { _id: req.params.thoughtId }, 
@@ -67,7 +67,7 @@ export const deleteThought = async (req, res) => {
 }
 
 
-export const addReaction = async (req, res) => {
+const addReaction = async (req, res) => {
   try {
     const addThought = await Thoughts.findOneAndUpdate(
       { _id: req.params.userId },
@@ -84,7 +84,7 @@ export const addReaction = async (req, res) => {
   }
 }
 
-export const removeReaction = async (req, res) => {
+const removeReaction = async (req, res) => {
   try {
     const removeFriend = await Thoughts.findOneAndUpdate(
       { _id: req.params.userId },
@@ -101,5 +101,10 @@ export const removeReaction = async (req, res) => {
 }
 
 module.exports = {
-  
+  getAllThoughts,
+  getOneThought,
+  createThought,
+  updateThought,
+  addReaction,
+  removeReaction
 }
