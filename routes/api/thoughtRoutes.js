@@ -7,9 +7,20 @@ const {
   createThought,
   updateThought,
   addReaction,
-  removeReaction
+  removeReaction,
+  deleteThought
 } = require('../../controllers/thoughtController');
 
 // route for homepage to get all thoughts and create a thought
-// router.route('/').get
+router.route('/').get(getAllThoughts).post(createThought);
+
+// route for specific user ID to get one user, update a user, and delete a user
+router.route('/:thoughtsId').get(getOneThought).put(updateThought).delete(deleteThought);
+
+// route for adding a reaction to a thought
+router.route('/:thoughtsId/reaction/:reactionId').put(addReaction);
+
+// route for removing a reaction from the thoughts
+router.route('/:thoughtsId/reaction/:reactionId').put(removeReaction);
+
 module.exports = router;
