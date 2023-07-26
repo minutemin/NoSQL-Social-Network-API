@@ -66,11 +66,11 @@ const deleteUser = async (req, res) => {
   }
 };
 
-const addFriend = async (req, res) => {
+const addFriends = async (req, res) => {
   try {
-    const addFriend = await User.findOneAndUpdate(
+    const addFriend = await User.findByIdAndUpdate(
       { _id: req.params.userId },
-      { $addToSet: { friends: req.params.friendId }},
+      { $addToSet: { friends: req.params.friendsId }},
       { new: true }
     );
     if (!addFriend) {
@@ -83,11 +83,11 @@ const addFriend = async (req, res) => {
   }
 };
 
-const removeFriend = async (req, res) => {
+const removeFriends = async (req, res) => {
   try {
     const removeFriend = await User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friends: { friendId: req.body.friendId }}},
+      { $pull: { friends: { friendsId: req.body.friendsId }}},
       { new: true }
     );
     if (!removeFriend) {
@@ -105,6 +105,6 @@ module.exports  = {
   createUser, 
   updateUser, 
   deleteUser,
-  addFriend,
-  removeFriend
+  addFriends,
+  removeFriends
 };
