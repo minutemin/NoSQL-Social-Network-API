@@ -69,13 +69,13 @@ const deleteThought = async (req, res) => {
 
 const addReaction = async (req, res) => {
   try {
-    const addThought = await Thoughts.findOneAndUpdate(
+    const addReaction = await Thoughts.findOneAndUpdate(
       { _id: req.params.thoughtsId },
-      { $addToSet: { friends: req.params.thoughtsId }},
+      { $addToSet: { reactions: req.params.reactionId }},
       { new: true }
     );
-    if (!addFriend) {
-      res.status(404).json({ message: "Friend is not found" });
+    if (!addReaction) {
+      res.status(404).json({ message: "Reaction is not found" });
     }
   } catch (err) {
     console.log(err);
@@ -86,13 +86,13 @@ const addReaction = async (req, res) => {
 
 const removeReaction = async (req, res) => {
   try {
-    const removeFriend = await Thoughts.findOneAndUpdate(
+    const removeReaction = await Thoughts.findOneAndUpdate(
       { _id: req.params.thoughtsId },
-      { $pull: { friends: { friendId: req.body.friendId }}},
+      { $pull: { reactions: { reactionId: req.body.reactionId }}},
       { new: true }
     );
-    if (!removeFriend) {
-      res.status(404).json({ message: "Friend is not found" });
+    if (!removeReaction) {
+      res.status(404).json({ message: "Reaction is not found" });
     }
   } catch (err) {
     console.log(err);
@@ -105,6 +105,7 @@ module.exports = {
   getOneThought,
   createThought,
   updateThought,
+  deleteThought,
   addReaction,
   removeReaction
-}
+};
