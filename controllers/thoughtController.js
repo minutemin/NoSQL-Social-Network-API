@@ -36,15 +36,15 @@ const createThought = async (req, res) => {
 
 const updateThought = async (req, res) => {
   try {
-    const updateThought = await Thoughts.findOneAndUpdate(
+    const addThought = await Thoughts.findOneAndUpdate(
       { _id: req.params.thoughtsId }, 
       { $set: req.body },
       { new: true },
     );
-    if (!updateThought) {
+    if (!addThought) {
       res.status(404).json({ message: "Thought is not found" });
     } 
-    res.json(updateThought);
+    res.json(addThought);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -53,13 +53,13 @@ const updateThought = async (req, res) => {
 
 const deleteThought = async (req, res) => {
   try {
-    const deleteThought = await Thoughts.findOneAndDelete(
+    const removeThought = await Thoughts.findOneAndDelete(
       { _id: req.params.thoughtsId }, 
     );
-    if (!deleteThought) {
+    if (!removeThought) {
       res.status(404).json({ message: "Thought is not found" });
     } 
-    res.json(deleteThought);
+    res.json(removeThought);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
