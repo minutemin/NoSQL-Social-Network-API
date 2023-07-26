@@ -66,3 +66,37 @@ export const deleteThought = async (req, res) => {
   }
 }
 
+
+export const addReaction = async (req, res) => {
+  try {
+    const addThought = await Thoughts.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $addToSet: { friends: req.params.thoughtId }},
+      { new: true }
+    );
+    if (!addFriend) {
+      res.status(404).json({ message: "Friend is not found" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+
+  }
+}
+
+export const removeReaction = async (req, res) => {
+  try {
+    const removeFriend = await Thoughts.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $pull: { friends: { friendId: req.body.friendId }}},
+      { new: true }
+    );
+    if (!removeFriend) {
+      res.status(404).json({ message: "Friend is not found" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+}
+

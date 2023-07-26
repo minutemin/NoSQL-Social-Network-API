@@ -19,9 +19,9 @@ const userSchema = new Schema({
       type: mongoose.Schema.Types.ObjectId, 
       ref: 'Thoughts'
     }],
-    friends: [{
+    friend: [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'Users'
     }], 
     }, 
     {
@@ -32,9 +32,9 @@ const userSchema = new Schema({
     }
   );
 
-// Create a virtual called `friendCount` that retrieves the length of the user's `friends` array field on query.
+// Create a virtual called `friendCount` that retrieves the length of the user's `friend` array field on query.
 userSchema.virtual('friendCount').get(function() {
-  return this.friends.length;
+  return this.friend.length;
 })
 
 
