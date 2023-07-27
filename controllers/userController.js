@@ -68,6 +68,7 @@ const deleteUser = async (req, res) => {
 
 const addFriends = async (req, res) => {
   try {
+    console.log("Adding friend to the friends's list");
     const addFriend = await User.findByIdAndUpdate(
       { _id: req.params.userId },
       { $addToSet: { friends: req.params.friendsId }},
@@ -75,6 +76,8 @@ const addFriends = async (req, res) => {
     );
     if (!addFriend) {
       res.status(404).json({ message: "Friend is not found" });
+    } else {
+      res.status(200).json({ message: "Adding friend!"});
     }
   } catch (err) {
     console.log(err);
@@ -85,13 +88,15 @@ const addFriends = async (req, res) => {
 
 const removeFriends = async (req, res) => {
   try {
-    const removeFriend = await User.findOneAndUpdate(
+    const removeFriend = await User.findByIdAndUpdate(
       { _id: req.params.userId },
       { $pull: { friends: { friendsId: req.body.friendsId }}},
       { new: true }
     );
     if (!removeFriend) {
       res.status(404).json({ message: "Friend is not found" });
+    } else {
+      res.status(200).json({ message: "Removing friend!"});
     }
   } catch (err) {
     console.log(err);
