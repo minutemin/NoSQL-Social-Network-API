@@ -77,7 +77,7 @@ const addReaction = async (req, res) => {
     if (!addReaction) {
       res.status(404).json({ message: "Reaction is not found" });
     } else {
-      res.status(200).json({ message: "Reaction Added!! ", addReaction});
+      res.status(200).json({ message: "Reaction Added!! "});
     }
   } catch (err) {
     console.log(err);
@@ -96,7 +96,7 @@ const removeReaction = async (req, res) => {
     if (!removeReaction) {
       res.status(404).json({ message: "Reaction is not found" });
     } else {
-      res.status(200).json({ message: "Reaction Removed! "});
+      res.status(200).json({ message: "Reaction Removed!" });
     }
   } catch (err) {
     console.log(err);
