@@ -71,13 +71,13 @@ const addReaction = async (req, res) => {
   try {
     const addReaction = await Thoughts.findByIdAndUpdate(
       { _id: req.params.thoughtsId },
-      { $addToSet: { reactions: req.params.reactionId }},
+      { $addToSet: { reactions: req.body }},
       { new: true }
     );
     if (!addReaction) {
       res.status(404).json({ message: "Reaction is not found" });
     } else {
-      res.status(200).json({ message: "Reaction Added!! "});
+      res.status(200).json({ message: "Reaction Added!! ", addReaction});
     }
   } catch (err) {
     console.log(err);

@@ -12,7 +12,7 @@ const reactionsSchema = new Schema({
       required: true,
       maxlength: 280,
     },
-    username: { // should this be object ID reference? 
+    username: {
       type: String,
       required: true,
     },
