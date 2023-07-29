@@ -46,31 +46,6 @@ const createThoughts = async (req, res) => {
   }
 }
 
-// const createThoughts = async (req, res) => {
-//   try {
-//     // Create the thought
-//     const createdThought = await Thoughts.create(req.body);
-
-//     // Find the user by username
-//     const user = await User.findOne({ username: req.body.username });
-
-//     if (!user) {
-//       return res.status(400).json({
-//         message: 'Thought created, but found no User with that username'
-//       });
-//     }
-
-//     // Add the created thought ID to the user's thoughts array
-//     user.thoughts.push(createdThought._id);
-//     await user.save();
-
-//     res.json('Created the Thought!');
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json(err);
-//   }
-// };
-
 
 const updateThought = async (req, res) => {
   try {
