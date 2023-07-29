@@ -1,4 +1,5 @@
 const Thoughts = require('../models/Thoughts');
+const User = require('../models/Users');
 
 
 const getAllThoughts = async(req, res) => {
@@ -24,15 +25,52 @@ const getOneThought = async(req, res) => {
   }
 }
 
-const createThought = async (req, res) => {
+const createThoughts = async (req, res) => {
   try {
-    const newThought = await Thoughts.create(req.body);
-    res.json(newThought);
+    // create the thought
+    const createdThought = await Thoughts.create(req.body);
+   // find the user and update the thoughts array
+    const userToThought = await User.findOneAndUpdate(
+      { username: req.body.username },
+      { $addToSet: { thoughts: createdThought._id }},
+      { new: true }
+    );
+    if (!userToThought) {
+      res.status(404).json({ message: "Username is not found"});
+    } else { 
+      res.status(200).json({ message: "Created the thought!", createdThought });
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 }
+
+// const createThoughts = async (req, res) => {
+//   try {
+//     // Create the thought
+//     const createdThought = await Thoughts.create(req.body);
+
+//     // Find the user by username
+//     const user = await User.findOne({ username: req.body.username });
+
+//     if (!user) {
+//       return res.status(400).json({
+//         message: 'Thought created, but found no User with that username'
+//       });
+//     }
+
+//     // Add the created thought ID to the user's thoughts array
+//     user.thoughts.push(createdThought._id);
+//     await user.save();
+
+//     res.json('Created the Thought!');
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json(err);
+//   }
+// };
+
 
 const updateThought = async (req, res) => {
   try {
@@ -77,7 +115,7 @@ const addReaction = async (req, res) => {
     if (!addReaction) {
       res.status(404).json({ message: "Reaction is not found" });
     } else {
-      res.status(200).json({ message: "Reaction Added!! "});
+      res.status(200).json({ message: "Reaction Added to !! "});
     }
   } catch (err) {
     console.log(err);
@@ -107,7 +145,7 @@ const removeReaction = async (req, res) => {
 module.exports = {
   getAllThoughts,
   getOneThought,
-  createThought,
+  createThoughts,
   updateThought,
   deleteThought,
   addReaction,

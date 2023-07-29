@@ -14,10 +14,11 @@ const thoughtSchema = new Schema({
       type: Date,
       default: Date.now,
     },
-    username: [{ 
+    username: { 
       type: String,
+      // ref: 'Users',
       required: true,
-    }],
+    },
     reactions: [reactionsSchema]
     },
     {

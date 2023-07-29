@@ -4,7 +4,7 @@ const router = express.Router();
 const {
   getAllThoughts,
   getOneThought,
-  createThought,
+  createThoughts,
   updateThought,
   addReaction,
   removeReaction,
@@ -12,7 +12,7 @@ const {
 } = require('../../controllers/thoughtController');
 
 // route for homepage to get all thoughts and create a thought
-router.route('/').get(getAllThoughts).post(createThought);
+router.route('/').get(getAllThoughts).post(createThoughts);
 
 // route for specific user ID to get one user, update a user, and delete a user
 router.route('/:thoughtsId').get(getOneThought).put(updateThought).delete(deleteThought);
