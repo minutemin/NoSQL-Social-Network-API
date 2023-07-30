@@ -16,7 +16,7 @@ Video Link: https://drive.google.com/file/d/1OjOOAMLYkXuhQT6d5qxGG1IxuyrqJVP1/vi
 - What problem does it solve?
 - What did you learn? -->
 
-This project was built to use NoSQL for a social network back end functionality using MongoDB and Mongoose with express.js and node.js. Users are able to be created in insomnia and users are able to create thoughts.  For each thought, user can leave and remove a reaction.  Users are also able to add and remove friends to their friend's list.  
+This project was built to use NoSQL for a social network back end functionality using MongoDB and Mongoose with express.js and node.js. As a user, an account can be created in insomnia and users are able to create thoughts.  Each thought can be paired with a user, and for each thought, users can leave and remove a reaction.  Users are also able to add and remove friends to their friend's list.  
 
 
 ## Table of Contents (Optional)
@@ -30,7 +30,7 @@ This project was built to use NoSQL for a social network back end functionality 
   
 <!-- What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running. -->
 
-npm i.  
+All you will need to do is install npm and it's dependencies by running "npm i" in your CLI. 
 
 ## Usage
 
@@ -40,6 +40,7 @@ To add a screenshot, create an `assets/images` folder in your repository and upl
 
 ![alt text](assets/images/screenshot.png) -->
 
+To use this back end app, after installing npm, run npm start or npm run dev if you want nodemon to make it run. 
 
 ## License
 

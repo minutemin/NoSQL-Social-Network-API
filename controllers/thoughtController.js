@@ -82,10 +82,11 @@ const deleteThought = async (req, res) => {
 
 const addReaction = async (req, res) => {
   try {
+
     const addReaction = await Thoughts.findByIdAndUpdate(
       { _id: req.params.thoughtsId },
-      { $addToSet: { reactions: req.body }},
-      { new: true }
+      { $push: { reactions: req.body }},
+      { new: true, runValidators: true }
     );
     if (!addReaction) {
       res.status(404).json({ message: "Reaction is not found" });
@@ -103,7 +104,7 @@ const removeReaction = async (req, res) => {
   try {
     const removeReaction = await Thoughts.findByIdAndUpdate(
       { _id: req.params.thoughtsId },
-      { $pull: { reactions: { reactionId: req.body.reactionId }}},
+      { $pull: { reactions: { reactionId: req.params.reactionId }}},
       { new: true }
     );
     if (!removeReaction) {
