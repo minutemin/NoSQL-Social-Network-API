@@ -75,9 +75,12 @@ const deleteThought = async (req, res) => {
     } 
     const updatedUser = await User.findOneAndUpdate(
       { thoughts: req.params.thoughtsId },
-      { $pull: { thoughts: req.params.thoughtId }},
+      { $pull: { thoughts: req.params.thoughtsId }},
       { new: true }
     );
+    if (!updatedUser) {
+      res.status(404).json({ message: "User is not found" });
+    }
     res.json(removeThought);
  
   } catch (err) {
