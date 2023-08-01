@@ -32,7 +32,7 @@ const createThoughts = async (req, res) => {
    // find the user and update the thoughts array
     const userToThought = await User.findOneAndUpdate(
       { username: req.body.username },
-      { $addToSet: { thoughts: createdThought._id }},
+      { $push: { thoughts: createdThought._id }},
       { new: true }
     );
     if (!userToThought) {
@@ -58,6 +58,7 @@ const updateThought = async (req, res) => {
       res.status(404).json({ message: "Thought is not found" });
     } 
     res.json(addThought);
+  
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -66,13 +67,19 @@ const updateThought = async (req, res) => {
 
 const deleteThought = async (req, res) => {
   try {
-    const removeThought = await Thoughts.findOneAndDelete(
+    const removeThought = await Thoughts.findOneAndRemove(
       { _id: req.params.thoughtsId }, 
     );
     if (!removeThought) {
       res.status(404).json({ message: "Thought is not found" });
     } 
+    const updatedUser = await User.findOneAndUpdate(
+      { thoughts: req.params.thoughtsId },
+      { $pull: { thoughts: req.params.thoughtId }},
+      { new: true }
+    );
     res.json(removeThought);
+ 
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
