@@ -5,5 +5,5 @@ connect('mongodb://127.0.0.1:27017/thoughtDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }) 
-// export mongoose.connection module. 
+// export connection module. 
 module.exports = connection; 

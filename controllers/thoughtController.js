@@ -1,8 +1,9 @@
+// require the Thoughts and Users Model
 const Thoughts = require('../models/Thoughts');
-const User = require('../models/Users');
+const Users = require('../models/Users');
 
-
-const getAllThoughts = async(req, res) => {
+// f
+const getAllThoughts = async (req, res) => {
   try {
     const allThoughts = await Thoughts.find()
     res.json(allThoughts);
@@ -12,12 +13,12 @@ const getAllThoughts = async(req, res) => {
   }
 }
 
-const getOneThought = async(req, res) => {
+const getOneThought = async (req, res) => {
   try {
     const thought = await Thoughts.findOne({ _id: req.params.thoughtsId });
     if (!thought) {
       res.status(404).json({ message: "That thought is not found" });
-    } 
+    }
     res.json(thought);
   } catch (err) {
     console.log(err);
@@ -29,16 +30,16 @@ const createThoughts = async (req, res) => {
   try {
     // create the thought
     const createdThought = await Thoughts.create(req.body);
-   // find the user and update the thoughts array
-    const userToThought = await User.findOneAndUpdate(
+    // find the user and update the thoughts array
+    const userToThought = await Users.findOneAndUpdate(
       { username: req.body.username },
-      { $push: { thoughts: createdThought._id }},
+      { $push: { thoughts: createdThought._id } },
       { new: true }
     );
     if (!userToThought) {
-      res.status(404).json({ message: "Username is not found"});
-    } else { 
-      res.status(200).json({ message: "Created the thought!", createdThought });
+      res.status(404).json({ message: "Username is not found" });
+    } else {
+      res.status(200).json({ message: "Thought has been created!" });
     }
   } catch (err) {
     console.log(err);
@@ -46,19 +47,18 @@ const createThoughts = async (req, res) => {
   }
 }
 
-
 const updateThought = async (req, res) => {
   try {
     const addThought = await Thoughts.findOneAndUpdate(
-      { _id: req.params.thoughtsId }, 
+      { _id: req.params.thoughtsId },
       { $set: req.body },
       { new: true },
     );
     if (!addThought) {
       res.status(404).json({ message: "Thought is not found" });
-    } 
-    res.json(addThought);
-  
+    }
+    res.status(200).json({ message: "Thought has been updated!" });
+
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -67,41 +67,40 @@ const updateThought = async (req, res) => {
 
 const deleteThought = async (req, res) => {
   try {
-    const removeThought = await Thoughts.findOneAndRemove(
-      { _id: req.params.thoughtsId }, 
+    const removeThought = await Thoughts.findOneAndDelete(
+      { _id: req.params.thoughtsId },
     );
     if (!removeThought) {
       res.status(404).json({ message: "Thought is not found" });
-    } 
-    const updatedUser = await User.findOneAndUpdate(
+    }
+    const updatedUser = await Users.findOneAndUpdate(
       { thoughts: req.params.thoughtsId },
-      { $pull: { thoughts: req.params.thoughtsId }},
+      { $pull: { thoughts: req.params.thoughtsId } },
       { new: true }
     );
     if (!updatedUser) {
       res.status(404).json({ message: "User is not found" });
     }
-    res.json(removeThought);
- 
+    res.status(200).json({ message: "Thought deleted!"});
+
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 }
 
-
 const addReaction = async (req, res) => {
   try {
 
     const addReaction = await Thoughts.findByIdAndUpdate(
       { _id: req.params.thoughtsId },
-      { $push: { reactions: req.body }},
+      { $push: { reactions: req.body } },
       { new: true, runValidators: true }
     );
     if (!addReaction) {
       res.status(404).json({ message: "Reaction is not found" });
     } else {
-      res.status(200).json({ message: "Reaction Added to !! "});
+      res.status(200).json({ message: "Reaction Added to thought! " });
     }
   } catch (err) {
     console.log(err);
@@ -114,7 +113,7 @@ const removeReaction = async (req, res) => {
   try {
     const removeReaction = await Thoughts.findByIdAndUpdate(
       { _id: req.params.thoughtsId },
-      { $pull: { reactions: { reactionId: req.params.reactionId }}},
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
       { new: true }
     );
     if (!removeReaction) {

@@ -1,8 +1,8 @@
-const User = require('../models/Users');
+const Users = require('../models/Users');
 
 const getAllUsers = async(req, res) => {
   try {
-    const allUsers = await User.find()
+    const allUsers = await Users.find()
     res.json(allUsers);
   } catch (err) {
     console.log(err);
@@ -12,7 +12,7 @@ const getAllUsers = async(req, res) => {
 
 const getOneUser = async(req, res) => {
   try {
-    const user = await User.findOne({ _id: req.params.userId });
+    const user = await Users.findOne({ _id: req.params.userId });
     if (!user) {
       res.status(404).json({message: "User is not found"});
     } 
@@ -25,8 +25,8 @@ const getOneUser = async(req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const newUser = await User.create(req.body);
-    res.json(newUser);
+    const newUser = await Users.create(req.body);
+    res.status(200).json({ message: "User has been created!" });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -35,7 +35,7 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const updateUser = await User.findOneAndUpdate(
+    const updateUser = await Users.findOneAndUpdate(
       { _id: req.params.userId }, 
       { $set: req.body },
       { new: true },
@@ -43,7 +43,7 @@ const updateUser = async (req, res) => {
     if (!updateUser) {
       res.status(404).json({ message: "User is not found" });
     } 
-    res.json(updateUser);
+    res.status(200).json({ message: "User information has been updated!" });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -53,13 +53,13 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const deleteUser = await User.findOneAndDelete(
+    const deleteUser = await Users.findOneAndDelete(
       { _id: req.params.userId }, 
     );
     if (!deleteUser) {
       res.status(404).json({ message: "User is not found" });
     } 
-    res.json(deleteUser);
+    res.status(200).json({ message: "User has been deleted!" });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -68,8 +68,7 @@ const deleteUser = async (req, res) => {
 
 const addFriends = async (req, res) => {
   try {
-    console.log("Adding friend to the friends's list");
-    const addFriend = await User.findByIdAndUpdate(
+    const addFriend = await Users.findByIdAndUpdate(
       { _id: req.params.userId },
       { $addToSet: { friends: req.params.friendsId }},
       { new: true }
@@ -88,7 +87,7 @@ const addFriends = async (req, res) => {
 
 const removeFriends = async (req, res) => {
   try {
-    const removeFriend = await User.findByIdAndUpdate(
+    const removeFriend = await Users.findByIdAndUpdate(
       { _id: req.params.userId },
       { $pull: {friends: req.params.friendsId }},
       { new: true }

@@ -39,7 +39,7 @@ userSchema.virtual('friendsCount').get(function() {
 
 
 // Using mongoose.model() to compile a model based on the schema 'userSchema'
-const User = model('User', userSchema);
+const Users = model('User', userSchema);
 
 // export module User
-module.exports = User;
+module.exports = Users;
