@@ -1,7 +1,7 @@
-// require mongoose schema & model
+// require mongoose schema & model & Types 
 const { Schema, model, Types } = require('mongoose');
 
-// Schema for reactions model
+// Schema for reactions model 
 const reactionsSchema = new Schema({
     reactionId: {
       type: Schema.Types.ObjectId,

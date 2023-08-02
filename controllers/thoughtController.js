@@ -2,7 +2,7 @@
 const Thoughts = require('../models/Thoughts');
 const Users = require('../models/Users');
 
-// f
+// function expression to get all thougths
 const getAllThoughts = async (req, res) => {
   try {
     const allThoughts = await Thoughts.find()
@@ -12,7 +12,7 @@ const getAllThoughts = async (req, res) => {
     res.status(500).json(err);
   }
 }
-
+// function expression to get one thought
 const getOneThought = async (req, res) => {
   try {
     const thought = await Thoughts.findOne({ _id: req.params.thoughtsId });
@@ -25,12 +25,12 @@ const getOneThought = async (req, res) => {
     res.status(500).json(err);
   }
 }
-
+// function expression to create a thought
 const createThoughts = async (req, res) => {
   try {
-    // create the thought
+    // creating the thought
     const createdThought = await Thoughts.create(req.body);
-    // find the user and update the thoughts array
+    // finding the user and update the thoughts in the thoughts array
     const userToThought = await Users.findOneAndUpdate(
       { username: req.body.username },
       { $push: { thoughts: createdThought._id } },
@@ -46,7 +46,7 @@ const createThoughts = async (req, res) => {
     res.status(500).json(err);
   }
 }
-
+// function expression for updating thoughts
 const updateThought = async (req, res) => {
   try {
     const addThought = await Thoughts.findOneAndUpdate(
@@ -64,15 +64,15 @@ const updateThought = async (req, res) => {
     res.status(500).json(err);
   }
 }
-
+// function expression to delete thoughts by ID
 const deleteThought = async (req, res) => {
-  try {
+  try { // deletes the thought
     const removeThought = await Thoughts.findOneAndDelete(
       { _id: req.params.thoughtsId },
     );
     if (!removeThought) {
       res.status(404).json({ message: "Thought is not found" });
-    }
+    } //find the thought in User array and removes it from the array by ID
     const updatedUser = await Users.findOneAndUpdate(
       { thoughts: req.params.thoughtsId },
       { $pull: { thoughts: req.params.thoughtsId } },
@@ -88,7 +88,7 @@ const deleteThought = async (req, res) => {
     res.status(500).json(err);
   }
 }
-
+// function expression for adding a reaction to a thought 
 const addReaction = async (req, res) => {
   try {
 
@@ -108,7 +108,7 @@ const addReaction = async (req, res) => {
 
   }
 }
-
+// function expression for removing a reaction from a thought
 const removeReaction = async (req, res) => {
   try {
     const removeReaction = await Thoughts.findByIdAndUpdate(
@@ -126,7 +126,7 @@ const removeReaction = async (req, res) => {
     res.status(500).json(err);
   }
 }
-
+// export all the expression modules. 
 module.exports = {
   getAllThoughts,
   getOneThought,

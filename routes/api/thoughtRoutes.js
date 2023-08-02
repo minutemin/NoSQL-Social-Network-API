@@ -1,4 +1,4 @@
-// require express & router & thoughtController file
+// require express & router & all modules of the thoughtController file
 const express = require('express');
 const router = express.Router();
 const {
@@ -23,4 +23,5 @@ router.route('/:thoughtsId/reactions').post(addReaction);
 // route for removing a reaction from the thoughts
 router.route('/:thoughtsId/reactions/:reactionId').delete(removeReaction);
 
+// export the router module
 module.exports = router;

@@ -1,5 +1,6 @@
+// require Users Model from the model's folder
 const Users = require('../models/Users');
-
+// function expression to get all users from Mongo DB
 const getAllUsers = async(req, res) => {
   try {
     const allUsers = await Users.find()
@@ -9,7 +10,7 @@ const getAllUsers = async(req, res) => {
     res.status(500).json(err);
   }
 };
-
+// function expression to get one user by user Id.
 const getOneUser = async(req, res) => {
   try {
     const user = await Users.findOne({ _id: req.params.userId });
@@ -22,7 +23,7 @@ const getOneUser = async(req, res) => {
     res.status(500).json(err);
   }
 };
-
+// function expression to create a new user
 const createUser = async (req, res) => {
   try {
     const newUser = await Users.create(req.body);
@@ -32,7 +33,7 @@ const createUser = async (req, res) => {
     res.status(500).json(err);
   }
 };
-
+// function expression to update a field for a user
 const updateUser = async (req, res) => {
   try {
     const updateUser = await Users.findOneAndUpdate(
@@ -50,7 +51,7 @@ const updateUser = async (req, res) => {
 
   }
 };
-
+// function to delete a user
 const deleteUser = async (req, res) => {
   try {
     const deleteUser = await Users.findOneAndDelete(
@@ -65,7 +66,7 @@ const deleteUser = async (req, res) => {
     res.status(500).json(err);
   }
 };
-
+// function to add a freind to the friend's array of a user
 const addFriends = async (req, res) => {
   try {
     const addFriend = await Users.findByIdAndUpdate(
@@ -84,7 +85,7 @@ const addFriends = async (req, res) => {
 
   }
 };
-
+// function to remove friends from friend's array of a user
 const removeFriends = async (req, res) => {
   try {
     const removeFriend = await Users.findByIdAndUpdate(
@@ -102,7 +103,7 @@ const removeFriends = async (req, res) => {
     res.status(500).json(err);
   }
 };
-
+// export the function modules
 module.exports  = {
   getAllUsers, 
   getOneUser, 

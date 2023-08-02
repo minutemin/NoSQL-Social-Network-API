@@ -1,4 +1,4 @@
-// require mongoose model class 
+// require mongoose model, schema and types class 
 const { Schema, model, Types } = require('mongoose');
 const reactionsSchema = require('./Reactions');
 
@@ -17,7 +17,7 @@ const thoughtSchema = new Schema({
     username: { 
       type: String,
       required: true,
-    },
+    }, // reactions to the reactionsSchema
     reactions: [reactionsSchema]
     },
     {
