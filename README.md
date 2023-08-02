@@ -29,6 +29,20 @@ Users are able to create thoughts by using the POST method in the "../api/though
 
 For each thought, a user can enter reactions to those thoughts.  To do so, use the POST method to add a reaction with the url path "../thoughts/:thoughtsId/reactions".  You will see the reaction array in the thoughts body.  If you want to delete the reaction, use the DELETE method with url path "../thoughts/:thoughtsId/reactions/:reactionId".  
 
+## Screenshots
+Here are some screenshots, please watch the video for more detailed demo!
+
+Getting all users:
+![allUsers](assets/images/SS-NoSQL/SS-NoSQL-allUsers.png)
+Creating a user:
+![createUser](assets/images/SS-NoSQL/SS-NoSQL-createUser.png)
+Deleting a user:
+![deleteUser](assets/images/SS-NoSQL/SS-NoSQL-deleteUser.png)
+Getting one user:
+![oneUser](assets/images/SS-NoSQL/SS-NoSQL-oneUser.png)
+Updating a user:
+![updateUser](assets/images/SS-NoSQL/SS-NoSQL-updateUser.png)
+
 ## License
 
 Please refer to the link below if you need to read the terms and conditions of the license:
